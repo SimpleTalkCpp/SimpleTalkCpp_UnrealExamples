@@ -1,10 +1,36 @@
 #include "MySpawnPoint.h"
+#include "MyActor.h"
+#include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/BillboardComponent.h"
+#include "MySceneComponent.h"
 #include "NavigationSystem.h"
-
 
 AMySpawnPoint::AMySpawnPoint() {
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.TickGroup = TG_PrePhysics;
+
+	static ConstructorHelpers::FClassFinder<AActor> SpawnActorFinder(TEXT("Blueprint'/Game/MyProject/MyBox'"));
+	SpawnActorClass = SpawnActorFinder.Class;
+
+	BillboardComponent = CreateDefaultSubobject<UBillboardComponent>(UBillboardComponent::StaticClass()->GetFName());
+	SetRootComponent(BillboardComponent);
+
+	static ConstructorHelpers::FObjectFinder<UTexture2D> Texture(TEXT("Texture2D'/Engine/EditorResources/EmptyActor'"));
+	BillboardComponent->Sprite = Texture.Object;
+
+	static FName BoxName(TEXT("Box Test"));
+	BoxComponent = CreateDefaultSubobject<UBoxComponent>(BoxName);
+
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(USphereComponent::StaticClass()->GetFName());
+
+	static FName Shpere2(TEXT("Sphere2"));
+	SphereComponent2 = CreateDefaultSubobject<USphereComponent>(Shpere2);
+
+	SphereComponent2->SetupAttachment(SphereComponent);
+
+	MySceneComponent = CreateDefaultSubobject<UMySceneComponent>(UMySceneComponent::StaticClass()->GetFName());
 }
 
 FVector AMySpawnPoint::GetRandomLocation() {

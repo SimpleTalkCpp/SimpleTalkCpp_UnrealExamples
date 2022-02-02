@@ -3,6 +3,8 @@
 AMyActor::AMyActor() {
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.TickGroup = TG_PrePhysics;
+
+	TestInt = 100;
 }
 
 void AMyActor::Tick( float DeltaSeconds ) {

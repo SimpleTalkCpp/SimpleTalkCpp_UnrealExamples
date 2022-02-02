@@ -26,4 +26,12 @@ public:
 	float SpawnInterval = 5;
 
 	float _RemainTime = 0;
+
+	UPROPERTY(VisibleAnywhere) class UBoxComponent*		BoxComponent = nullptr;
+	UPROPERTY(VisibleAnywhere) class USphereComponent*	SphereComponent = nullptr;
+	UPROPERTY(VisibleAnywhere) class USphereComponent*	SphereComponent2 = nullptr;
+
+	UPROPERTY(VisibleAnywhere) class UMySceneComponent* MySceneComponent = nullptr;
+
+	UPROPERTY(VisibleAnywhere) class UBillboardComponent* BillboardComponent = nullptr;
 };
