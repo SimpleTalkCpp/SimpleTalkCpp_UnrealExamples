@@ -3,6 +3,37 @@
 void AMyLesson002_Actor::BeginPlay() {
 	Super::BeginPlay();
 
+	DemoStringFormat();
+	DemoEnum();
+
+	FName a(TEXT("abc5"));
+	FName b(TEXT("abc100"));
+}
+
+void AMyLesson002_Actor::DemoEnum() {
+	UEnum* EnumInfo = StaticEnum<EMyLesson002_MyEnumClass>();
+	int N = EnumInfo->NumEnums();
+	for (int i = 0; i < N; i++) {
+		int64 value = EnumInfo->GetValueByIndex(i);
+		FName name  = EnumInfo->GetNameByIndex(i);
+		MY_LOG("EnumInfo {} {} {}", i, value, name);
+	}
+
+	{
+		auto value = static_cast<EMyLesson002_MyEnumClass>(EnumInfo->GetValueByNameString("B"));
+		MY_LOG("EnumInfo GetValueByNameString {}", value);
+	}
+
+	auto EnumBitwiseOr = EMyLesson002_MyEnumClass::A | EMyLesson002_MyEnumClass::B;
+	MY_LOG("EnumInfo EnumBitwiseOr {}", EnumBitwiseOr);
+}
+
+void AMyLesson002_Actor::DemoStringFormat() {
+
+	const char*    sz  = "Hello";
+	const wchar_t* wcs = L"Hello";
+	const TCHAR*   tcs = TEXT("Hello");
+
 	{
 		FString str = FString::Printf(TEXT("FString Printf %d %d %f %s"), 1, 2, 1.23f, TEXT("Hi!"));
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *str);
@@ -33,6 +64,11 @@ void AMyLesson002_Actor::BeginPlay() {
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *str);
 	}
 
-	MY_LOG("MYLOG Test {}", 123);
+	{
+		FString str = MyFormat("MyFormat {} {}", 123, "string");
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *str);
+	}
+
+	MY_LOG("MY_LOG Test {}", 123);
 }
 
