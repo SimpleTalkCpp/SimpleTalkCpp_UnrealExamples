@@ -24,7 +24,11 @@ template <> struct fmt::detail::is_output_iterator<MyFormat_FStringBackInserter,
 
 template<class... ARGS> inline
 void MyAppendFormat(FString& outStr, const char* format_str, const ARGS& ... args) {
-	fmt::format_to(MyFormat_FStringBackInserter(outStr), format_str, args...);
+	try {
+		fmt::format_to(MyFormat_FStringBackInserter(outStr), format_str, args...);
+	} catch (...) {
+		UE_LOG(LogTemp, Error, TEXT("Exception in MyFormat"));
+	}
 }
 
 template<class... ARGS> inline
