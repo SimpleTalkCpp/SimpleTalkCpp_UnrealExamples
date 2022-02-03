@@ -1,17 +1,31 @@
 #include "MyLesson004_PlayerController.h"
 
 #include <Kismet/GameplayStatics.h>
+#include <GameFramework/GameModeBase.h>
 
 AMyLesson004_PlayerController::AMyLesson004_PlayerController() {
 	InputDirection = FVector::ZeroVector;
 }
 
 void AMyLesson004_PlayerController::BeginPlay() {
+#if WITH_EDITOR
+	static FName folderPath(TEXT("MyGame"));
+
+	SetActorLabel(TEXT("MyController Test"));
+
+	SetFolderPath(folderPath);
+	if (auto* p = GetWorld()->GetAuthGameMode()) {
+		p->SetFolderPath(folderPath);
+	}
+#endif
+
 	UpdateCameraTarget();
 }
 
 void AMyLesson004_PlayerController::Tick(float DeltaSeconds) {
 	Super::Tick(DeltaSeconds);
+
+//	auto* Game = GetWorld()->GetGameInstanceChecked<UMyLesson004_GameInstance>();
 
 	if (GEngine) {
 		FString msg = MyFormat("InputDirection {}", InputDirection);

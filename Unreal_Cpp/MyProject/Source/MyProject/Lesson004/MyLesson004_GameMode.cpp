@@ -7,6 +7,7 @@ AMyLesson004_GameMode::AMyLesson004_GameMode() {
 	PlayerStateClass = nullptr;
 	GameStateClass = nullptr;
 	SpectatorClass = nullptr;
+	HUDClass = nullptr;
 
 //	PlayerControllerClass = nullptr;
 	PlayerControllerClass = AMyLesson004_PlayerController::StaticClass();
