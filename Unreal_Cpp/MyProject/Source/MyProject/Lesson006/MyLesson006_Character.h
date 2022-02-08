@@ -18,7 +18,7 @@ public:
 	TSubclassOf<AMyLesson006_Bullet> BulletClass;
 
 	UPROPERTY(EditAnywhere)
-	USceneComponent* AimLocator = nullptr;
+	TWeakObjectPtr<AActor>	Target;
 
 	AMyLesson006_Character();
 
@@ -28,6 +28,12 @@ public:
 	void MyFire();
 
 private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent* CameraBoom = nullptr;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* FollowCamera = nullptr;
+
 	const USkeletalMeshSocket* MyFindSocket(FName name);
 
 	TWeakObjectPtr<USkeletalMeshSocket const> SpawnBulletSocket;

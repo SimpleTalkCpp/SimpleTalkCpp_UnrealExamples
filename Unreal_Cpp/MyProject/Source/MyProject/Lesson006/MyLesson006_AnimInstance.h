@@ -8,11 +8,12 @@ class UMyLesson006_AnimInstance : public UAnimInstance {
 	GENERATED_BODY()
 
 public:
-	UMyLesson006_AnimInstance();
 
-	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	UPROPERTY(EditAnywhere, Transient, BlueprintReadOnly)
+	float MoveForward = 0;
 
-	void _UpdateAim();
+	UPROPERTY(EditAnywhere, Transient, BlueprintReadOnly)
+	float MoveRight = 0;
 
 	UPROPERTY(EditAnywhere, Transient, BlueprintReadOnly)
 	float AimUp = 0;
@@ -22,4 +23,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Transient)
 	class AMyLesson006_Character* MyCharacter = nullptr;
+
+
+	UMyLesson006_AnimInstance();
+
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	void _UpdateMove();
+	void _UpdateAim();
+
 };
