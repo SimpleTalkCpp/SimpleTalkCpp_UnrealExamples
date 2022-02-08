@@ -31,9 +31,10 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
-	void MyFire();
-
 	void MyEquip();
+
+	void MyFire();
+	void AnimNotify_Fire();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

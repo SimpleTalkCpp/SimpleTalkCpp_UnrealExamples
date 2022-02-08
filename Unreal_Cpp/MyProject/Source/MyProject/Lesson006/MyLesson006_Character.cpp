@@ -97,7 +97,9 @@ void AMyLesson006_Character::MyFire() {
 			ani->Montage_Play(Montage_Fire_Upper);
 		}
 	}
+}
 
+void AMyLesson006_Character::AnimNotify_Fire() {
 	UClass* cls = BulletClass.Get();
 	if (!cls) {
 		MY_LOG("BulletClass is null");
