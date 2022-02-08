@@ -32,6 +32,7 @@ public:
 	void OnInputAxis_LookupRate	(float value);
 
 	void OnInputAction_Crouch_Pressed();
+	void OnInputAction_Equip_Pressed();
 	void OnInputAction_Fire_Pressed();
 	void OnInputAction_Jump_Pressed();
 

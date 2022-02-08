@@ -20,12 +20,20 @@ public:
 	UPROPERTY(EditAnywhere)
 	TWeakObjectPtr<AActor>	Target;
 
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* Montage_Equip = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* Montage_Fire_Upper = nullptr;
+
 	AMyLesson006_Character();
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
 	void MyFire();
+
+	void MyEquip();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

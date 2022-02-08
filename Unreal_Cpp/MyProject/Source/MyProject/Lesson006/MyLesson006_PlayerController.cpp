@@ -42,6 +42,7 @@ void AMyLesson006_PlayerController::SetupInputComponent() {
 
 	// Action
 	InputComponent->BindAction("Crouch",		IE_Pressed,	this, &ThisClass::OnInputAction_Crouch_Pressed);
+	InputComponent->BindAction("Equip",			IE_Pressed,	this, &ThisClass::OnInputAction_Equip_Pressed);
 	InputComponent->BindAction("Fire",			IE_Pressed,	this, &ThisClass::OnInputAction_Fire_Pressed);
 	InputComponent->BindAction("Jump",			IE_Pressed,	this, &ThisClass::OnInputAction_Jump_Pressed);
 }
@@ -73,6 +74,11 @@ void AMyLesson006_PlayerController::OnInputAxis_LookupRate(float value) {
 void AMyLesson006_PlayerController::OnInputAction_Crouch_Pressed() {
 	if (!MyCharacter) return;
 	MyCharacter->MyCrouch = !MyCharacter->MyCrouch;
+}
+
+void AMyLesson006_PlayerController::OnInputAction_Equip_Pressed() {
+	if (!MyCharacter) return;
+	MyCharacter->MyEquip();
 }
 
 void AMyLesson006_PlayerController::OnInputAction_Fire_Pressed() {

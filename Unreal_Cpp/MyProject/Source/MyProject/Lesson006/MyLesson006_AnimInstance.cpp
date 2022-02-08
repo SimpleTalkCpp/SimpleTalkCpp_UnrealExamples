@@ -14,16 +14,23 @@ void UMyLesson006_AnimInstance::NativeUpdateAnimation(float DeltaSeconds) {
 
 	_UpdateMove();
 	_UpdateAim();
+	_UpdateSlotWeight();
 }
 
 void UMyLesson006_AnimInstance::_UpdateMove() {
-	auto vel = MyCharacter->GetCharacterMovement()->Velocity;
+	auto* charMove = MyCharacter->GetCharacterMovement();
 
+	auto vel = charMove->Velocity;
 	vel = MyCharacter->GetTransform().InverseTransformVector(vel);
+
+	vel /= charMove->MaxWalkSpeed;
 
 	MoveForward = vel.X;
 	MoveRight   = vel.Y;
 
+	MyCrouch = MyCharacter->MyCrouch;
+
+	IsMovingGround = charMove->IsMovingOnGround();
 }
 
 void UMyLesson006_AnimInstance::_UpdateAim() {
@@ -37,4 +44,24 @@ void UMyLesson006_AnimInstance::_UpdateAim() {
 		AimUp    = 0;
 		AimRight = 0;
 	}
+}
+
+void UMyLesson006_AnimInstance::_UpdateSlotWeight() {
+	static FName UpperName(TEXT("Upper"));
+	UpperSlotWeight = GetMontageSlotWeight(UpperName);
+}
+
+float UMyLesson006_AnimInstance::GetMontageSlotWeight(FName slot) {
+	float outWeight = 0;
+
+	int32 const NumInstances = MontageInstances.Num();
+	for (int32 InstanceIndex = NumInstances - 1; InstanceIndex >= 0; InstanceIndex--) {
+		const FAnimMontageInstance* MontageInstance = MontageInstances[InstanceIndex];
+		if (!MontageInstance || !MontageInstance->IsActive()) continue;
+		if (!MontageInstance->Montage->IsValidSlot(slot)) continue;
+		outWeight += MontageInstance->GetWeight();
+	}
+
+	outWeight = FMath::Clamp(outWeight, 0.0f, 1.0f);
+	return outWeight;
 }

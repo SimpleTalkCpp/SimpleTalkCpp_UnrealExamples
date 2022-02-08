@@ -41,7 +41,14 @@ AMyLesson006_Character::AMyLesson006_Character() {
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...at this rotation rate
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
-	GetCharacterMovement()->MaxWalkSpeed = 150;
+	GetCharacterMovement()->MaxWalkSpeed = 225;
+
+	// Montage
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> Montage_Equip_Obj(TEXT("AnimMontage'/Game/SimpleTalkCpp/Lesson006/Animations/Montage_Equip.Montage_Equip'"));
+	Montage_Equip = Montage_Equip_Obj.Object;
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> Montage_File_Upper_Obj(TEXT("AnimMontage'/Game/SimpleTalkCpp/Lesson006/Animations/Montage_Fire_Upper'"));
+	Montage_Fire_Upper = Montage_File_Upper_Obj.Object;
 
 	// Bullet
 	BulletClass = AMyLesson006_Bullet::StaticClass();
@@ -85,6 +92,12 @@ void AMyLesson006_Character::Tick(float DeltaSeconds) {
 }
 
 void AMyLesson006_Character::MyFire() {
+	if (Montage_Fire_Upper) {
+		if (auto* ani = GetMesh()->GetAnimInstance()) {
+			ani->Montage_Play(Montage_Fire_Upper);
+		}
+	}
+
 	UClass* cls = BulletClass.Get();
 	if (!cls) {
 		MY_LOG("BulletClass is null");
@@ -94,6 +107,22 @@ void AMyLesson006_Character::MyFire() {
 	if (auto* sock = SpawnBulletSocket.Get()) {
 		FTransform trans = sock->GetSocketTransform(GetMesh());
 		trans.SetScale3D(FVector::OneVector);
+
+		if (auto* t = Target.Get()) {
+			auto targetLoc = t->GetActorLocation();
+			auto v = targetLoc - trans.GetLocation();
+			trans.SetRotation(v.Rotation().Quaternion());
+		}
+
 		GetWorld()->SpawnActor(cls, &trans);
+	}
+}
+
+void AMyLesson006_Character::MyEquip() {
+	MY_LOG("Equip");
+	if (Montage_Equip) {
+		if (auto* ani = GetMesh()->GetAnimInstance()) {
+			ani->Montage_Play(Montage_Equip);
+		}
 	}
 }
