@@ -13,6 +13,9 @@ void AMyLesson006_PlayerController::Tick(float DeltaSeconds) {
 	if (!ch) return;
 
 	auto v = ch->GetTransform().TransformVector(InputDirection);
+	
+	v *= FMath::Clamp(1 - ch->BlockMoveCurveValue, 0.0f, 1.0f);
+
 	ch->GetMovementComponent()->AddInputVector(v);
 }
 

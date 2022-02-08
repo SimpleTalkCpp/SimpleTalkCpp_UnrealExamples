@@ -82,6 +82,11 @@ const USkeletalMeshSocket* AMyLesson006_Character::MyFindSocket(FName name) {
 void AMyLesson006_Character::Tick(float DeltaSeconds) {
 	Super::Tick(DeltaSeconds);
 
+	if (auto* ani = GetMesh()->GetAnimInstance()) {
+		static FName BlockMove(TEXT("BlockMove"));
+		BlockMoveCurveValue = ani->GetCurveValue(BlockMove);
+	}
+
 	if (auto* t = Target.Get()) {
 		if (auto* startSock = AimStartSocket.Get()) {
 			auto start = startSock->GetSocketLocation(GetMesh());

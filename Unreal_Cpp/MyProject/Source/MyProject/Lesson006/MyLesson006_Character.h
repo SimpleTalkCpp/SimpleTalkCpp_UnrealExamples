@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* Montage_Fire_Upper = nullptr;
 
+	UPROPERTY(EditAnywhere, Transient)
+	float BlockMoveCurveValue = 0;
+
 	AMyLesson006_Character();
 
 	virtual void BeginPlay() override;
