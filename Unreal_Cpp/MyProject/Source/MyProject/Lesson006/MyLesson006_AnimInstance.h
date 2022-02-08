@@ -33,6 +33,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Transient)
 	class AMyLesson006_Character* MyCharacter = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UAnimSequence* TestAnim = nullptr;
+
 
 	UMyLesson006_AnimInstance();
 

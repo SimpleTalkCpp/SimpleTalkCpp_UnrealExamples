@@ -6,6 +6,8 @@ UMyLesson006_AnimInstance::UMyLesson006_AnimInstance() {
 }
 
 void UMyLesson006_AnimInstance::NativeUpdateAnimation(float DeltaSeconds) {
+	Super::NativeUpdateAnimation(DeltaSeconds);
+
 	auto* Mesh = GetSkelMeshComponent();
 	if (!Mesh) return;
 
@@ -37,7 +39,7 @@ void UMyLesson006_AnimInstance::_UpdateAim() {
 	if (auto* t = MyCharacter->Target.Get()) {
 		FVector targetLoc = t->GetActorLocation();
 		FVector aim = MyCharacter->GetTransform().InverseTransformPosition(targetLoc);
-		auto rot = aim.Rotation();
+		FRotator rot = aim.Rotation();
 		AimUp    = rot.Pitch;
 		AimRight = rot.Yaw;
 	} else {

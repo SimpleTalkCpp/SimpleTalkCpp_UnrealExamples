@@ -22,7 +22,7 @@ class UMyLesson006_AnimNotifyState_Example : public UAnimNotifyState {
 public:
 
 	virtual void NotifyBegin(USkeletalMeshComponent * MeshComp, UAnimSequenceBase * Animation, float TotalDuration) { 
-		MY_LOG("AnimNotifyState_Example Begin"); 
+//		MY_LOG("AnimNotifyState_Example Begin"); 
 	}
 	
 	virtual void NotifyTick(USkeletalMeshComponent * MeshComp, UAnimSequenceBase * Animation, float FrameDeltaTime) {
@@ -30,6 +30,6 @@ public:
 	}
 	
 	virtual void NotifyEnd(USkeletalMeshComponent * MeshComp, UAnimSequenceBase * Animation) {
-		MY_LOG("AnimNotifyState_Example End");
+//		MY_LOG("AnimNotifyState_Example End");
 	}
 };
