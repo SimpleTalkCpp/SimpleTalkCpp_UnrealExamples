@@ -1,12 +1,14 @@
 
 #include "MyLesson006_Character.h"
 #include "MyLesson006_AnimInstance.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
 
-AMyLesson006_Character::AMyLesson006_Character() {
+#include <DrawDebugHelpers.h>
 
+AMyLesson006_Character::AMyLesson006_Character() {
 	GetCapsuleComponent()->SetCapsuleHalfHeight(97);
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh(TEXT("SkeletalMesh'/Game/AnimStarterPack/UE4_Mannequin/Mesh/SK_Mannequin'"));
@@ -19,8 +21,40 @@ AMyLesson006_Character::AMyLesson006_Character() {
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw   = false;
 
-
 	BulletClass = AMyLesson006_Bullet::StaticClass();
+
+	static FName AimLocatorName(TEXT("AimLocator"));
+	AimLocator = CreateDefaultSubobject<USceneComponent>(AimLocatorName);
+	AimLocator->SetRelativeLocation(FVector(500, 0, 0));
+}
+
+void AMyLesson006_Character::BeginPlay() {
+	Super::BeginPlay();
+
+	static FName SpawnBulletSocketName(TEXT("SpawnBulletSocket"));
+	SpawnBulletSocket = MyFindSocket(SpawnBulletSocketName);
+
+	static FName AimStartSocketName(TEXT("AimStartSocket"));
+	AimStartSocket = MyFindSocket(AimStartSocketName);
+}
+
+const USkeletalMeshSocket* AMyLesson006_Character::MyFindSocket(FName name) {
+	auto* sock = GetMesh()->GetSocketByName(name);
+	if (!sock) {
+		MY_LOG("cannot find socket {}", name);
+	}
+	return sock;
+}
+
+
+void AMyLesson006_Character::Tick(float DeltaSeconds) {
+	Super::Tick(DeltaSeconds);
+
+	if (auto* startSock = AimStartSocket.Get()) {
+		auto start = startSock->GetSocketLocation(GetMesh());
+		auto aim   = AimLocator->GetComponentLocation();
+		DrawDebugLine(GetWorld(), start, aim, FColor::Red);
+	}
 }
 
 void AMyLesson006_Character::MyFire() {
@@ -30,14 +64,9 @@ void AMyLesson006_Character::MyFire() {
 		return;
 	}
 
-	static FName SpawnBulletSocket(TEXT("SpawnBulletSocket"));
-	auto* sock = GetMesh()->GetSocketByName(SpawnBulletSocket);
-	if (!sock) {
-		MY_LOG("cannot find socket {}", SpawnBulletSocket);
-		return;
+	if (auto* sock = SpawnBulletSocket.Get()) {
+		FTransform trans = sock->GetSocketTransform(GetMesh());
+		trans.SetScale3D(FVector::OneVector);
+		GetWorld()->SpawnActor(cls, &trans);
 	}
-
-	FTransform trans = sock->GetSocketTransform(GetMesh());
-	trans.SetScale3D(FVector::OneVector);
-	GetWorld()->SpawnActor(cls, &trans);
 }

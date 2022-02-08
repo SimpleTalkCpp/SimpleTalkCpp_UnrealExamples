@@ -15,9 +15,21 @@ public:
 	bool MyCrouch = false;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<AMyLesson006_Bullet>	BulletClass;
+	TSubclassOf<AMyLesson006_Bullet> BulletClass;
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* AimLocator = nullptr;
 
 	AMyLesson006_Character();
 
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+
 	void MyFire();
+
+private:
+	const USkeletalMeshSocket* MyFindSocket(FName name);
+
+	TWeakObjectPtr<USkeletalMeshSocket const> SpawnBulletSocket;
+	TWeakObjectPtr<USkeletalMeshSocket const> AimStartSocket;
 };
