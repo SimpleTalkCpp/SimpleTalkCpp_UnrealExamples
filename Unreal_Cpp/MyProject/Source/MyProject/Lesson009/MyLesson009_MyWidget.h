@@ -11,6 +11,8 @@ class UMyLesson009_MyWidget : public UUserWidget {
 	GENERATED_BODY()
 public:
 
+	UMyLesson009_MyWidget(const FObjectInitializer& ObjectInitializer);
+
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidget)) UTextBlock*	MyTextBlock	= nullptr;
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidget)) UButton*		MyButton	= nullptr;
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidget)) UListView*	MyListView	= nullptr;

@@ -1,7 +1,7 @@
 #include "MyLesson009_GameMode.h"
-#include "MyLesson009_HUD.h"
+#include "MyLesson009_PlayerController.h"
 
 AMyLesson009_GameMode::AMyLesson009_GameMode() {
-	HUDClass = AMyLesson009_HUD::StaticClass();
+	PlayerControllerClass = AMyLesson009_PlayerController::StaticClass();
 }
 

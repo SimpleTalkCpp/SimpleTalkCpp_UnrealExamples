@@ -2,6 +2,12 @@
 #include "../Common/MyCommon.h"
 #include "MyLesson009_ListItem.h"
 
+UMyLesson009_MyWidget::UMyLesson009_MyWidget(const FObjectInitializer& ObjectInitializer) 
+: Super(ObjectInitializer)
+{
+	bIsFocusable = true;
+}
+
 void UMyLesson009_MyWidget::NativeOnInitialized() {
 	Super::NativeOnInitialized();
 	MyButton->OnPressed.AddDynamic(this, &ThisClass::OnButtonPressed);

@@ -3,6 +3,13 @@
 #define FMT_HEADER_ONLY 1
 #include "../Externals/fmt/core.h"
 
+#include <UObject/ReflectedTypeAccessors.h>
+
+template<class T> inline
+FName MyEnumToFName(const T& enumValue) {
+	return StaticEnum<T>()->GetNameByValue(static_cast<int64>(enumValue));
+}
+
 class MYPROJECT_API MyFormat_FStringBackInserter {
 	using This = MyFormat_FStringBackInserter;
 public:
