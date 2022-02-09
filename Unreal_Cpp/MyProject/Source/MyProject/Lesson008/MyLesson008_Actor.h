@@ -3,6 +3,12 @@
 #include "../Common/MyCommon.h"
 #include "MyLesson008_Actor.generated.h"
 
+// C to C++  -  shared_ptr, safe bool idiom, weak_ptr
+//    https://www.youtube.com/watch?v=XFj5vjgug_0&list=PLeGk08zVu4566pxRefXH0zr1FDL4BGUUG&index=17
+
+// C Sharp 22 - Garbage Collection, StringBuilder 
+//    https://www.youtube.com/watch?v=upv14CVxsCk&list=PLeGk08zVu454pKsrnLJCEZbEJD5vszSbI&index=23&t=1s
+
 DECLARE_DELEGATE_TwoParams(          FMyLesson008_TestDelegate, int, float);
 DECLARE_MULTICAST_DELEGATE_TwoParams(FMyLesson008_TestEvent,    int, float);
 
@@ -30,10 +36,10 @@ public:
 	void OnTestFunction(int testInt, float testFloat);
 
 	UFUNCTION(BlueprintCallable)
-	void OnTestUFunction(int testInt, float testFloat);
+	void OnTestUFunction(int testInt, float testFloat); // Blueprint call C++
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnTestBlueprintImplentableEvent(int testInt, float testFloat);
+	void OnTestBlueprintImplentableEvent(int testInt, float testFloat); // C++ call Blueprint Event
 
 	void OnTestDynamicFunction(int testInt, float testFloat);
 
