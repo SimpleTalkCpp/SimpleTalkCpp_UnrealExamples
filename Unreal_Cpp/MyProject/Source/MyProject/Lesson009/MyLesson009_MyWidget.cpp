@@ -31,5 +31,9 @@ void UMyLesson009_MyWidget::OnButtonPressed() {
 
 		MyListView->AddItem(item);
 	}
+
+	if (Lesson009_TestUIAnim) {
+		PlayAnimation(Lesson009_TestUIAnim);
+	}
 }
 

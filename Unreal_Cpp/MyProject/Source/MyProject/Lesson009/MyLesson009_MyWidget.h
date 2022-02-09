@@ -17,6 +17,9 @@ public:
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidget)) UButton*		MyButton	= nullptr;
 	UPROPERTY(EditAnywhere, Transient, meta=(BindWidget)) UListView*	MyListView	= nullptr;
 
+	UPROPERTY(EditAnywhere, Transient, meta=(BindWidgetAnim)) class UWidgetAnimation* Lesson009_TestUIAnim = nullptr;
+
+
 	virtual void NativeOnInitialized() override;
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 

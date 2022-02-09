@@ -30,5 +30,4 @@ void AMyLesson009_PlayerController::CreateMyWidget() {
 	}
 
 	MyWidget->AddToViewport();
-	MyWidget->SetKeyboardFocus();
 }

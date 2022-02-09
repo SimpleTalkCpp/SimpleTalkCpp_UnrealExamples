@@ -19,7 +19,7 @@ UCLASS()
 class UMyLesson009_ListItemWidget : public UUserWidget, public IUserObjectListEntry {
 	GENERATED_BODY()
 public:	
-	UPROPERTY(EditAnywhere) UTextBlock*	MyItemText = nullptr;
+	UPROPERTY(EditAnywhere, Transient, meta=(BindWidget)) UTextBlock*	MyItemText = nullptr;
 
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 };

@@ -13,7 +13,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyLesson009_MyWidget> MyWidgetClass;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Transient)
 	UMyLesson009_MyWidget* MyWidget = nullptr;
 
 	AMyLesson009_PlayerController();
