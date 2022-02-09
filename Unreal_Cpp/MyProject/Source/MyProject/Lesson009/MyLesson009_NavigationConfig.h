@@ -23,7 +23,6 @@ private:
 	void _InitActionMap(APlayerController* PC);
 
 	static FInputActionKeyMapping*	FindInputAction	(UPlayerInput* Input, FName ActionName);
-	static FInputAxisKeyMapping*	FindInputAxis	(UPlayerInput* Input, FName AxisName);
 
 	TMap<FName, EUINavigationAction>	_KeyToActionMap;
 	TMap<FName, EUINavigation>			_KeyToDirectionMap;

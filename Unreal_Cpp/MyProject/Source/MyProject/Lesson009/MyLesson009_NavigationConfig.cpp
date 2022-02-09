@@ -51,21 +51,12 @@ void FMyLesson009_NavigationConfig::_InitActionMap(APlayerController* PC) {
 	}
 
 	for (auto& It : _KeyMap.DirectionMap) {
-		if (!FindInputAxis(PC->PlayerInput, It.Key)) {
+		if (!FindInputAction(PC->PlayerInput, It.Key)) {
 			MY_LOG("UINavigation missing Action {}", It.Key);
 		}
 	}
 
 #endif
-}
-
-FInputAxisKeyMapping* FMyLesson009_NavigationConfig::FindInputAxis(UPlayerInput* Input, FName AxisName) {
-	if (!Input) return nullptr;
-	for (auto& E : Input->AxisMappings) {
-		if (E.AxisName == AxisName)
-			return &E;
-	}
-	return nullptr;
 }
 
 FInputActionKeyMapping* FMyLesson009_NavigationConfig::FindInputAction(UPlayerInput* Input, FName ActionName) {
