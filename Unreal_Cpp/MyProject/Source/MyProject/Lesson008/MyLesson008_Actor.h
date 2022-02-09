@@ -41,6 +41,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnTestBlueprintImplentableEvent(int testInt, float testFloat); // C++ call Blueprint Event
 
+	UFUNCTION()
 	void OnTestDynamicFunction(int testInt, float testFloat);
 
 	AMyLesson008_Actor();
